@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PM2E147.Views.PageSitios"
+             BackgroundColor="White">
+    <ContentPage.Content >
+        <StackLayout>
+
+            <Image x:Name="foto" WidthRequest="100" HeightRequest="200" />
+
+            <Button x:Name="btnfoto" Text="Capturar Imagen" Clicked="btnfoto_Clicked" TextColor="White" BackgroundColor="Purple" />
+
+            <Label Text="Latitud" TextColor="Black" />
+
+            <Label x:Name="txtlatitud" TextColor="Black" />
+
+            <Label Text="Longitud" TextColor="Black" />
+
+            <Label x:Name="txtlongi" TextColor="Black"/>
+
+            <Label Text="Descripcion" TextColor="Black" />
+
+            <Entry Keyboard="Text" x:Name="txtdesc" TextColor="Black" />
+
+            <Button x:Name="btnproceso" Text="Agregar" Clicked="btnproceso_Clicked" TextColor="White" BackgroundColor="Purple" />
+
+            <Button x:Name="btnlist" Text="Lista Sitios" Clicked="btnlist_Clicked" TextColor="White" BackgroundColor="Purple" />
+
+            <Button x:Name="btnsalir" Text="Salir App" Clicked="btnclose_Clicked" TextColor="White" BackgroundColor="Purple" />
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

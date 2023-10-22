@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PM2E147.Views.PageListSitios"
+             xmlns:conver="clr-namespace:PM2E147.Controller"
+             BackgroundColor="White">
+
+    <ContentPage.Resources>
+        <conver:ByteArrayImage x:Key="ByteArray"/>
+    </ContentPage.Resources>
+
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Agregar" Clicked="ToolbarItem_Clicked" />
+    </ContentPage.ToolbarItems>
+
+    <RelativeLayout>
+
+        <CollectionView x:Name="list"
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                        SelectionMode="Single"
+                        SelectionChanged="list_SelectionChanged">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"
+                                   ItemSpacing="15">
+                </LinearItemsLayout>
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="10">
+                        <Label Text="{Binding Descripcion}" TextColor="Black"/>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <StackLayout x:Name="buttonLayout"
+             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.1}"
+             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+             RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.9}"
+             Orientation="Horizontal" Padding="10" BackgroundColor="LightGray">
+            
+            <Button Text="Ver Mapa" Clicked="VerMapa_Clicked" Margin="5"/>
+            <BoxView HorizontalOptions="FillAndExpand"/>
+            <Button Text="Eliminar" Clicked="Eliminar_Clicked" Margin="5"/>
+        </StackLayout>
+
+    </RelativeLayout>
+
+</ContentPage>
