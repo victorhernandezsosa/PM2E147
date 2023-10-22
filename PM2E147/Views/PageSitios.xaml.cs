@@ -1,11 +1,14 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Plugin.Geolocator;
 using Plugin.Media;
+using PM2E147;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -38,26 +41,14 @@ namespace PM2E147.Views
             }
             else
             {
-                
+
             }
-        }
-
-        private async Task<bool> CheckPermissions()
-        {
-            var status = await Permissions.CheckStatusAsync<Permissions.StorageWrite>();
-
-            if (status != PermissionStatus.Granted)
-            {
-                status = await Permissions.RequestAsync<Permissions.StorageWrite>();
-            }
-
-            return status == PermissionStatus.Granted;
         }
 
         private async void ObtenerUbicacionActual()
         {
             var locator = CrossGeolocator.Current;
-            locator.DesiredAccuracy = 50; 
+            locator.DesiredAccuracy = 50;
 
             var position = await locator.GetPositionAsync();
 
@@ -119,40 +110,30 @@ namespace PM2E147.Views
 
         private async void btnproceso_Clicked(object sender, EventArgs e)
         {
-            bool hasWritePermission = await CheckPermissions(); 
-
-            if (hasWritePermission)
+            if (string.IsNullOrEmpty(txtdesc.Text) || photo == null)
             {
-                if (string.IsNullOrEmpty(txtdesc.Text) || photo == null)
-                {
-                    await DisplayAlert("Alerta", "Por favor, ingrese una descripción y seleccione una foto.", "OK");
-                }
-                else
-                {
-                    var site = new Models.Sitios
-                    {
-                        Latitud = txtlatitud.Text,
-                        Longitud = txtlongi.Text,
-                        Descripcion = txtdesc.Text,
-                        ImagenPath = ImageToArrayByte()
-                    };
-
-                    if (await App.Instancia.addPerson(site) > 0)
-                    {
-                        await DisplayAlert("Aviso", "Sitio Agregado", "OK");
-                    }
-                    else
-                    {
-                        await DisplayAlert("Alerta", "Ocurrió un error al agregar el sitio.", "OK");
-                    }
-                }
+                await DisplayAlert("Alerta", "Por favor, ingrese una descripción y seleccione una foto.", "OK");
             }
             else
             {
-                await DisplayAlert("Alerta", "La aplicación no tiene permisos para escribir en el almacenamiento.", "OK");
+                var site = new Models.Sitios
+                {
+                    Latitud = txtlatitud.Text,
+                    Longitud = txtlongi.Text,
+                    Descripcion = txtdesc.Text,
+                    ImagenPath = ImageToArrayByte()
+                };
+
+                if (await App.Instancia.addPerson(site) > 0)
+                {
+                    await DisplayAlert("Aviso", "Sitio Agregado", "OK");
+                }
+                else
+                {
+                    await DisplayAlert("Alerta", "Ocurrió un error al agregar el sitio.", "OK");
+                }
             }
         }
-
 
         private async void btnlist_Clicked(object sender, EventArgs e)
         {
